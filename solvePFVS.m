@@ -309,7 +309,7 @@ else
 end
 
 if ~micropore
-    rock.perm=double(D(D~=0));
+    rock.perm=double(D(geoSmaller==0));
 %     rock.perm    = rock.perm(~rem); clear rem
 else
     D(D==0)=eps;
