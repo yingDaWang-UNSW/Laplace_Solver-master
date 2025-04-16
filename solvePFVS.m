@@ -315,7 +315,7 @@ if ~micropore
 %     rock.perm    = rock.perm(~rem); clear rem
 else
     D(D==0)=eps;
-    rock.perm=double(D(D~=0));
+    rock.perm=double(D);
 end
 % if gradk
 % %     alpha=gradkCoeff./mean(rock.perm);
@@ -393,7 +393,9 @@ if isempty(bc)
 end
 
 clear west east
-S=computeCartTransYDW(rock);%computeTrans(G,rock); clear rock
+% S=computeCartTransYDW(rock);%
+S=computeTrans(G,rock); 
+clear rock
 r_psolve = @(state) incompTPFA(state, G, S, fluid,'bc',bc, 'LinSolve', @(A,b)  agmg(A,b,[],[],[],1));
 
 resSol=r_psolve(resSol);
@@ -456,7 +458,7 @@ Pout=pressure(:,:,Lz);
 
 Pin=mean(Pin(Pin>0));
 Pout=mean(Pout(Pout>0));
-gradP = (Pin-Pout)/Lz;
+gradP = (Pin-Pout)/(Lz-1);
 
 K = voxelSize^2*mean(vRMS2(:))/gradP*10^12;
 Kzz = voxelSize^2*mean(zVel2(:))/gradP*10^12;

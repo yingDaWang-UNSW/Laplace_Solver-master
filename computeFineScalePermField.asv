@@ -35,7 +35,7 @@ data_blocks = mat2cell(data, x_sizes, y_sizes, z_sizes);
 
 %% run pfvs for each subblock 3 times
 voxelSize=1e-6;
-alpha=2; % for porous media, this should be 1, for fractured media, it should be 2
+alpha=2; %
 gradk=0;
 FDGPA=1;
 FDGPAYD=0;
