@@ -70,10 +70,12 @@ if micropore
 else 
     [geoSmaller,~,connFlag] = removeDisconnections2(geoSmaller);
     if ~connFlag
-        K=0;
+        K=[0, 0, 0, 0];
         sol=[];
         G=[];
         phiEff=0;
+        vel={geoSmaller.*0,geoSmaller.*0,geoSmaller.*0};
+        P=geoSmaller.*0;
         return
     end
     phiEff=1-sum(sum(sum(geoSmaller)))/numel(geoSmaller);
