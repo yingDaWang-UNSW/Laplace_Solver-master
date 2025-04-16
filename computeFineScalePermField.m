@@ -7,9 +7,9 @@ data = fread(fileID, Nx*Ny*Nz, [dtype, '=>', dtype]);
 fclose(fileID);
 data = reshape(data, [Nx, Ny, Nz]);
 
-% load geopack;
-% data=geopack;
-% [Nx, Ny, Nz] = deal(150, 150, 150);
+load geopack;
+data=geopack;
+[Nx, Ny, Nz] = deal(150, 150, 150);
 
 %% Define block size
 block_size = 50;
@@ -34,8 +34,8 @@ end
 data_blocks = mat2cell(data, x_sizes, y_sizes, z_sizes);
 
 %% run pfvs for each subblock 3 times
-voxelSize=1e-6;
-alpha=2; % for porous media, this should be 1, for fractured media, it should be 2
+voxelSize=1e-5;
+alpha=1; % for porous media, this should be 1, for fractured media, it should be 2
 gradk=0;
 FDGPA=1;
 FDGPAYD=0;
@@ -73,6 +73,6 @@ for i=1:lx
         end
     end
 end
-[K,vel,P,phi,phiEff]= solvePFVS(ones(lx, ly, lz),voxelSize,0,0,0,0,1,1,0,1,cond);
+[K,vel,P,phi,phiEff]= solvePFVS(ones(lx, ly, lz),1,0,0,0,0,1,1,0,1,cond.*1e-12);
 
 
